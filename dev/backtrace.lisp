@@ -9,6 +9,7 @@
   
 (defun print-backtrace (error &key (output *debug-io*)
 			(if-exists :append)
+			(just-backtrace nil)
 			(verbose nil))
   "Send a backtrace for the error `error` to `output`. 
 
@@ -41,9 +42,10 @@ string. Otherwise, returns nil.
 	(stream (values output nil)))
     (unwind-protect
 	 (progn
-	   (format stream "~&Date/time: ~a" (date-time-string))
-	   (print-condition error stream)
-	   (terpri stream)
+	 	(unless just-backtrace
+     	(format stream "~&Date/time: ~a" (date-time-string))
+	   	(print-condition error stream)
+	   	(terpri stream))
 	   (print-backtrace-to-stream stream)
 	   (terpri stream)
 	   (when (typep stream 'string-stream)
