@@ -43,7 +43,7 @@ string. Otherwise, returns nil.
     (unwind-protect
 	 (progn
 	 	(unless just-backtrace
-     	(format stream "~&Date/time: ~a" (date-time-string))
+     	(format stream "~&Date/time: ~a~%" (date-time-string))
 	   	(print-condition error stream)
 	   	(terpri stream))
 	   (print-backtrace-to-stream stream)
